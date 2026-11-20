@@ -1,5 +1,5 @@
 // Cliente GraphQL del backend "Pide y Recoge" (repo Basededatosavanzadas, Apollo Server).
-// La URL se puede cambiar con VITE_API_URL en un archivo .env.local
+// La URL se lee de VITE_API_URL en el archivo .env (ver .env.example)
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/'
 
 // Envía una consulta GraphQL y devuelve el campo "data" de la respuesta.
