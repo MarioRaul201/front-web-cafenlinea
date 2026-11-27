@@ -149,3 +149,93 @@ export const IconCheck = (props) => (
     <path d="M5 12.5l4.5 4.5L19 7.5" />
   </Icon>
 )
+
+export const IconLogout = (props) => (
+  <Icon {...props}>
+    <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3" />
+    <path d="M10 17l-5-5 5-5M5 12h11" />
+  </Icon>
+)
+
+export const IconRefresh = (props) => (
+  <Icon {...props}>
+    <path d="M20 11a8 8 0 0 0-14.6-4.5L4 8" />
+    <path d="M4 4v4h4" />
+    <path d="M4 13a8 8 0 0 0 14.6 4.5L20 16" />
+    <path d="M20 20v-4h-4" />
+  </Icon>
+)
+
+export const IconEdit = (props) => (
+  <Icon {...props}>
+    <path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4z" />
+    <path d="M13.5 6.5l4 4" />
+  </Icon>
+)
+
+export const IconX = (props) => (
+  <Icon {...props}>
+    <path d="M6 6l12 12M18 6L6 18" />
+  </Icon>
+)
+
+export const IconBell = (props) => (
+  <Icon {...props}>
+    <path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z" />
+    <path d="M10 20a2 2 0 0 0 4 0" />
+  </Icon>
+)
+
+export const IconStore = (props) => (
+  <Icon {...props}>
+    <path d="M4 9l1.5-5h13L20 9" />
+    <path d="M4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0A2.7 2.7 0 0 0 20 9" />
+    <path d="M5 11.5V20h14v-8.5" />
+    <path d="M10 20v-5h4v5" />
+  </Icon>
+)
+
+export const IconBox = (props) => (
+  <Icon {...props}>
+    <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" />
+    <path d="M4 7.5l8 4.5 8-4.5M12 12v9" />
+  </Icon>
+)
+
+export const IconHistory = (props) => (
+  <Icon {...props}>
+    <path d="M3.5 12a8.5 8.5 0 1 0 2.5-6" />
+    <path d="M3 4v4h4" />
+    <path d="M12 8v4l3 2" />
+  </Icon>
+)
+
+export const IconClipboard = (props) => (
+  <Icon {...props}>
+    <rect x="5" y="4" width="14" height="17" rx="2" />
+    <path d="M9 4V3h6v1" />
+    <path d="M9 10h6M9 14h6M9 18h3" />
+  </Icon>
+)
+
+export const IconImage = (props) => (
+  <Icon {...props}>
+    <rect x="3" y="4" width="18" height="16" rx="2" />
+    <circle cx="9" cy="10" r="1.8" />
+    <path d="M21 16l-5-5-9 9" />
+  </Icon>
+)
+
+export const IconAlert = (props) => (
+  <Icon {...props}>
+    <path d="M12 3l9.5 17h-19L12 3z" />
+    <path d="M12 10v4M12 17.5v.01" />
+  </Icon>
+)
+
+export const IconNote = (props) => (
+  <Icon {...props}>
+    <path d="M5 4h14v11l-5 5H5V4z" />
+    <path d="M14 20v-5h5" />
+  </Icon>
+)
