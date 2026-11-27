@@ -1,17 +1,45 @@
-# Café Express
+# Café Express · Panel de cafetería
 
-Café Express es una página web para pedir comida en la cafetería de tu escuela **sin hacer fila**: eliges tu cafetería, ves el menú, armas tu pedido y luego pasas a recogerlo.
+Café Express permite pedir comida en la cafetería de la escuela **sin hacer fila**: el cliente pide desde la **app móvil** y pasa a recogerlo cuando está listo.
 
-Este repositorio es la **parte visual** (lo que ves en el navegador). Los datos, como las escuelas, los menús y los precios, vienen de otro programa llamado **backend** (repo `Basededatosavanzadas`). La página le pide la información y el backend se la manda.
+Este repositorio es el **panel web para el personal de la cafetería** (vendedores y dueños). Aquí llegan los pedidos que hacen los clientes desde la app, se preparan, se entregan y se mantiene el menú al día. Los datos (pedidos, productos, cafeterías) vienen de otro programa llamado **backend** (repo `Basededatosavanzadas`). El panel le pide la información y el backend se la manda.
 
 - Ver la página publicada: https://front-web-cafenlinea.onrender.com
 - Backend (de donde salen los datos): https://basededatosavanzadas.onrender.com
 
+## ¿Quién puede entrar?
+
+Solo cuentas de **vendedor** o de **dueño (jefe)** de una cafetería. Los clientes usan la app móvil; si intentan entrar aquí, el panel se los indica.
+
+Cuentas de prueba (contraseña `demo123`):
+
+| Rol | Correo |
+|---|---|
+| Dueño | `jefe@ulsa.mx` |
+| Vendedor | `vendedor@ulsa.mx` |
+
+> Ojo: estas cuentas usan la base de datos real del equipo. Lo que cambies (estados de pedidos, productos, cafeterías) también lo ve la app móvil.
+
+## Lo que ya funciona
+
+| Sección | Vendedor | Dueño |
+|---|---|---|
+| **Pedidos**: tablero Nuevos → Aceptados → En preparación → Listos, con lo que compró el cliente, sus notas, la hora de recogida y el aviso de pedidos nuevos (sonido y título de la pestaña) | ✅ | ✅ |
+| **Entregar** un pedido con el código de recogida del cliente y **cancelar** con confirmación | ✅ | ✅ |
+| **Historial**: pedidos por periodo y estado, ventas entregadas y la bitácora de cada pedido | ✅ | ✅ |
+| **Productos**: marcar agotado / a la venta y reponer existencias | ✅ | ✅ |
+| **Productos**: crear y editar platillos (precio, categoría, imagen…) | — | ✅ |
+| **Cafeterías**: registrar cafeterías nuevas y cambiar entre ellas | — | ✅ |
+
+Además: modo claro y oscuro, funciona en el celular y recuerda la sesión y la última cafetería elegida.
+
+Las existencias **bajan solas** cuando un cliente hace un pedido y **se regresan** si el pedido se cancela.
+
 ## ¿Con qué está hecho?
 
-- **React**: para construir la página por piezas (barra de arriba, menú lateral, tarjetas de productos…).
+- **React**: para construir la página por piezas (barra de arriba, tablero, tarjetas de pedidos…).
 - **Vite**: para correr la página en tu computadora mientras programas.
-- **Bootstrap**: para que se vea bien sin escribir todo el diseño desde cero.
+- **Bootstrap**: para la base de estilos.
 
 ## Cómo correrlo en tu computadora
 
@@ -43,7 +71,7 @@ npm run dev
 
 Para apagarla, en la terminal presiona `Ctrl + C`.
 
-> Si la primera vez tarda en salir el menú (hasta 1 minuto), es normal: el backend está en un servicio gratuito que se "duerme" cuando nadie lo usa y tarda en despertar.
+> Si la primera vez tarda en entrar (hasta 1 minuto), es normal: el backend está en un servicio gratuito que se "duerme" cuando nadie lo usa y tarda en despertar.
 
 ## ¿Qué es el archivo `.env`?
 
@@ -53,35 +81,27 @@ Es un archivo donde se guardan **configuraciones**, en este caso la dirección d
 VITE_API_URL=https://basededatosavanzadas.onrender.com/
 ```
 
-Así la página sabe a dónde pedir los datos. Si algún día el backend cambia de dirección, solo cambias esta línea, sin tocar el código.
+Así la página sabe a dónde pedir los datos. Si algún día el backend cambia de dirección, solo cambias esta línea, sin tocar el código. Si no hay `.env`, se usa la dirección de Render.
 
 - El `.env` **no se sube a GitHub**, porque en otros proyectos ahí se guardan contraseñas.
 - El `.env.example` **sí se sube**. Es una copia de ejemplo para que cualquiera sepa qué poner en su propio `.env`.
 
-## Lo que ya funciona
+## Cosas a tomar en cuenta
 
-- Elegir tu escuela y tu cafetería.
-- Ver el menú de esa cafetería, separado por categorías (cafés, postres, snacks…).
-- Buscar un producto por su nombre.
-- Ver qué productos están agotados.
-- Agregar productos al carrito: arriba se ven cuántos llevas y cuánto vas pagando.
-- La página recuerda la última cafetería que elegiste.
-- Modo claro y modo oscuro.
-- Si falla la conexión, aparece un aviso con un botón para volver a intentar.
-
-## Lo que falta (en construcción)
-
-- Abrir el carrito para ver, quitar o cambiar la cantidad de productos.
-- Iniciar sesión con tu cuenta de alumno.
-- Confirmar y enviar el pedido a la cafetería.
-- Ver en qué estado va tu pedido (preparándose, listo para recoger…).
+- El backend no avisa al instante cuando llega un pedido, así que el panel **pregunta cada 10 segundos** si hay pedidos nuevos.
+- El pedido no trae el nombre del cliente, solo su identificador; el panel muestra los últimos caracteres.
 
 ## ¿Dónde está cada cosa?
 
 ```
 src/
-├── components/   → las piezas de la página (barra de arriba, menú lateral, tarjetas, pie de página)
-├── services/     → api.js: el código que le pide los datos al backend
-├── utils/        → ayudas pequeñas, como poner los precios en formato $45.00
-└── App.jsx       → el archivo principal que junta todas las piezas
+├── App.jsx            → el archivo principal: sesión, cafetería elegida y secciones
+├── services/api.js    → el código que le pide y le manda datos al backend
+├── hooks/             → useColaPedidos: revisa la cola cada 10 s y detecta pedidos nuevos
+├── components/
+│   ├── Login, Topbar, Modal, Icons
+│   ├── pedidos/       → tablero, tarjeta y detalle de pedido, botones de estado, historial
+│   ├── productos/     → lista de productos y formulario para crear/editar
+│   └── cafeterias/    → lista de cafeterías y registro de una nueva
+└── utils/             → ayudas pequeñas: precios ($45.00), horas y nombres de estados
 ```
